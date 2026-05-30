@@ -5,10 +5,7 @@ class ImageSchema(BaseModel):
     
     name: str
     image: str
-    
-    product_id: int
-    enterprise_id: int
-    
+        
     model_config = ConfigDict(from_attributes=True)
 
 class ProductSchema(BaseModel):

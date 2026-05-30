@@ -8,6 +8,8 @@ class UserSchema(BaseModel):
     password: str
     active : bool | None = True
     admin : bool | None = False
+    enterprise_id : int | None = None
+    
     model_config = ConfigDict(from_attributes=True)
     
     

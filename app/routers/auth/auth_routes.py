@@ -51,11 +51,13 @@ async def create_user(usuario_schema: UserSchema, session:Session = Depends(sess
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="E-mail do usuario já existe")
     else:
         novo_usuario = Users(
-            nome=usuario_schema.name, 
+            name=usuario_schema.name, 
             email=usuario_schema.email, 
-            senha=senha_criptografada.hash(usuario_schema.password),
-            ativo=usuario_schema.active,
-            admin=usuario_schema.admin)
+            password=senha_criptografada.hash(usuario_schema.password),
+            active=usuario_schema.active,
+            admin=usuario_schema.admin,
+            enterprise_id = usuario_schema.enterprise_id
+            )
 
         session.add(novo_usuario)
         session.commit()

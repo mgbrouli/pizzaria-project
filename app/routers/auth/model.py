@@ -33,7 +33,7 @@ class Enterprise(Base):
     name_est : Mapped[str] = mapped_column(String(20), nullable=False)
     cnpj_est : Mapped[str] = mapped_column(String(20), nullable=False)
     short_description : Mapped[str] = mapped_column(String(255), nullable=False)
-    whastapp : Mapped[str] = mapped_column(String(20), nullable=False)
+    whatsapp : Mapped[str] = mapped_column(String(20), nullable=False)
     
     #Endereço
     
@@ -49,11 +49,11 @@ class Enterprise(Base):
     bg_color: Mapped[str] = mapped_column(String(7), default="#ffffff")
     text_color: Mapped[str] = mapped_column(String(7), default="#212529")
     
-    logo_path: Mapped[str] = mapped_column(String(255), nullable=False)
-    banner_path: Mapped[str] = mapped_column(String(255), nullable=False)
+    logo_path: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
+    banner_path: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
     
     products_ref : Mapped[List["Product"]] = relationship("Product",back_populates="enterprise_ref", cascade="all, delete-orphan")
-    image_ref : Mapped[List["Image"]] = relationship("Image", back_populates="enterprise_ref", cascade="all, delete-orphan")
+    image: Mapped[List["Image"]] = relationship("Image", back_populates="enterprise_ref", cascade="all, delete-orphan")
     user_ref : Mapped[List["Users"]]= relationship("Users", back_populates="enterprise_ref", cascade="all, delete-orphan")
     
     plan : Mapped[str] = mapped_column(String(20), default="GRATIS")
