@@ -1,13 +1,5 @@
 from pydantic import BaseModel, ConfigDict
-
-
-class ProductSchema(BaseModel):
-    name: str
-    ingredients: str
-    price: float
-    
-    
-    model_config = ConfigDict(from_attributes=True)    
+from typing import Optional
 
 class ImageSchema(BaseModel):
     
@@ -18,3 +10,13 @@ class ImageSchema(BaseModel):
     enterprise_id: int
     
     model_config = ConfigDict(from_attributes=True)
+
+class ProductSchema(BaseModel):
+    name: str
+    ingredients: str
+    price: float
+    
+    image: Optional[ImageSchema]
+    
+    model_config = ConfigDict(from_attributes=True)    
+

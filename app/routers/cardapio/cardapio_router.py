@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session, joinedload
+from typing import Dict
 from app.core.dependencies import sessao_banco, verificar_token
 from app.routers.cardapio.model import Product, Image
 from app.routers.cardapio.schema import ProductSchema, ImageSchema
@@ -62,3 +63,11 @@ async def criar_produto(produto_schema : ProductSchema, image_schema : ImageSche
 
 
 #Todo - Fazer a criação dos produtos e imagens e associar.
+
+@cardapio_router.get("/", response_model=Dict[str, ProductSchema])
+async def pegar_produtos( session: Session = Depends(sessao_banco)):
+    produtos = session.query(Product).all()
+    
+    return {str(produto.id) : produto for produto in produtos}
+        
+    

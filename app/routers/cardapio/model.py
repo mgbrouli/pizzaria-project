@@ -16,7 +16,12 @@ class Product(Base):
     price: Mapped[float] = mapped_column(Float, default=0.0)
     
     enterprise_id: Mapped[int] = mapped_column(ForeignKey("enterprises.id"))
-    image_ref : Mapped["Image"] = relationship("Image", uselist=False , back_populates="product_ref", lazy="joined", cascade="all, delete-orphan")
+    image: Mapped["Image"] = relationship(
+        "Image", uselist=False ,
+        back_populates="product_ref", 
+        lazy="joined", 
+        cascade="all, delete-orphan"
+        )
     
     enterprise_ref : Mapped["Enterprise"] = relationship(back_populates="products_ref")
     
@@ -31,5 +36,5 @@ class Image(Base):
     product_id : Mapped[int] = mapped_column(ForeignKey("products.id"))
     enterprise_id : Mapped[int] = mapped_column(ForeignKey("enterprises.id"))
     
-    product_ref : Mapped["Product"] = relationship("Product", back_populates="image_ref" )
+    product_ref : Mapped["Product"] = relationship("Product", back_populates="image" )
     enterprise_ref : Mapped["Enterprise"] = relationship("Enterprise", back_populates="images_ref")
