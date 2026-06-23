@@ -43,3 +43,11 @@ O planejamento do projeto está organizado através das **Issues do GitHub** e e
 1. Clone o repositório:
    ```bash
    git clone [https://github.com/mgbrouli/pizzaria-project.git](https://github.com/mgbrouli/pizzaria-project.git)
+
+
+> 💡 **OBS:** É necessário criar um arquivo `.env` no diretório `/app/core/` com as seguintes variáveis:
+
+```env
+ACCESS_TOKEN_EXPIRE_MINUTES='valor_numerico'
+SECRET_KEY='string_aleatoria_para_codificação'
+ALGORITHM='Algoritimo para criptografia'
