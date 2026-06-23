@@ -1,7 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 
 
-
 class UserSchema(BaseModel):
     name: str
     email: str

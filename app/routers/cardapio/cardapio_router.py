@@ -21,12 +21,14 @@ async def pegar_produtos( session: Session = Depends(sessao_banco)):
     """
     
     
-    produtos = session.query(Product).options(joinedload(Product.image)).all()
+    produtos = session.query(Product).options(joinedload(Product.image), joinedload(Product.enterprise_ref)).all()
+    
     
     resultado = {}
     
     for produto in produtos:
         image_convertida = None
+        
         
         if produto.image:
             conteudo_image= produto.image.image
@@ -37,13 +39,19 @@ async def pegar_produtos( session: Session = Depends(sessao_banco)):
                 "name": produto.image.name,
                 "image": conteudo_image
             }
+        empresa_dados = None
+        if produto.enterprise_id:
+            empresa_dados = {
+                "id": produto.enterprise_ref.id,
+                "name": produto.enterprise_ref.name_est
+            }
             
         resultado[str(produto.id)] = {
             "name": produto.name,
             "ingredients": produto.ingredients,
             "price": produto.price,
-            "image": image_convertida
-            
+            "image": image_convertida,
+            "empresa": empresa_dados
         }
         
     return resultado
